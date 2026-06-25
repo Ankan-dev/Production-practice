@@ -1,4 +1,4 @@
-name: Integration and Testing
+name: Build and test client and server
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-client:
-    name: build the client
+    name: client-build
     runs-on: ubuntu-latest
 
     defaults:
@@ -26,26 +26,22 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 22
-        cache: npm 
+        cache: npm
         cache-dependency-path: client/package-lock.json
 
-    - name: install packages
-      run: npm ci
-    
-    - name: build the client
+    - name: Build the client
       run: npm run build
-  
-  build-server:
-    name: build the server
-    runs-on: ubuntu-latest
 
-    env:
-      JWT_SECRET: ${{secrets.JWT_SECRET}}
+  build-server:
+    name: client-server
+    runs-on: ubuntu-latest
 
     defaults:
       run:
         working-directory: server
-
+    
+    env:
+      JWT_SECRET : ${{secrets.JWT_SECRET}}
 
     strategy:
       matrix:
@@ -58,15 +54,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 22
-        cache: npm 
+        cache: npm
         cache-dependency-path: server/package-lock.json
 
-    - name: install packages
-      run: npm ci
-    
     - name: test the server
       run: npm run test
-
     - name: build the server
       run: npm run build
-  
