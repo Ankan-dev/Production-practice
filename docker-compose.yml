@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  client:
+    platform: linux/amd64
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: ankandev/client:latest
+    ports:
+      - "8000:80"
+    
+  server:
+    platform: linux/amd64
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    image: ankandev/server:latest
+    ports:
+      - '5000:5000'
+    env_file: global.env
+    
