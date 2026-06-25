@@ -33,7 +33,7 @@ jobs:
       run: npm run build
 
   build-server:
-    name: client-server
+    name: server-build
     runs-on: ubuntu-latest
 
     defaults:
