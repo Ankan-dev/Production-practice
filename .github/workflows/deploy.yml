@@ -25,13 +25,12 @@ jobs:
        username: ${{secrets.DOCKER_USERNAME}}
        password: ${{secrets.DOCKER_PASSWORD}}
 
-    - name: Build the client Docker image
-      uses: docker/build-action@v3
+    - name: Build the client Docker image and push to dockerhub
+      uses: docker/build-push-action@v6
       with:
         context: /client
+        push: true
         platform: linux/amd64
         tags: ankandev/client:latest
 
-    - name: push the client docker image to docker hub
-      run: docker push ankandev/client:latest 
 
