@@ -1,16 +1,18 @@
-name: Docker Image build and push
+name: Deploy
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_run:  
+    workflows: ["Integration"]
+    types: 
+        - completed
 
 jobs:
 
   build:
 
-    name: build and push client
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    name: build and push 
     runs-on: ubuntu-latest
 
     env:
@@ -28,9 +30,17 @@ jobs:
     - name: Build the client Docker image and push to dockerhub
       uses: docker/build-push-action@v6
       with:
-        context: /client
+        context: ./client
         push: true
         platform: linux/amd64
         tags: ankandev/client:latest
+
+    - name: Buld the server Docker image and push to dockerhub
+      uses: docker/build-push-action@v6
+      with:
+        context: ./server
+        push: true
+        platform: linux/amd64
+        tags: ankandev/server:latest
 
 
