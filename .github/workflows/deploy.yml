@@ -51,7 +51,7 @@ jobs:
         key: ${{secrets.EC2_KEY}}
         scirpt: |
           cd /opt/app
-          docker compose pull
-          docker compose up -d
+          sudo docker compose pull
+          sudo docker compose up -d
 
 
