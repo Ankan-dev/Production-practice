@@ -1,4 +1,4 @@
-name: Deploy
+name: Push to dockerhub and Deploy
 
 on:
   workflow_run:  
