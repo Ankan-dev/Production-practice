@@ -43,4 +43,15 @@ jobs:
         platforms: linux/amd64
         tags: ankandev/server:latest
 
+    - name: Deploy in EC2 server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{secrets.EC2_HOST}}
+        username: ${{secrets.EC2_USERNAME}}
+        key: ${{secrets.EC2_KEY}}
+        scirpts: |
+          cd /opt/app
+          docker compose pull
+          docker compose up -d
+
 
