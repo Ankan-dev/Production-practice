@@ -49,7 +49,7 @@ jobs:
         host: ${{secrets.EC2_HOST}}
         username: ${{secrets.EC2_USERNAME}}
         key: ${{secrets.EC2_KEY}}
-        scirpt: |
+        script: |
           cd /opt/app
           sudo docker compose pull
           sudo docker compose up -d
