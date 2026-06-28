@@ -34,6 +34,8 @@ jobs:
         push: true
         platforms: linux/amd64
         tags: ankandev/client:latest
+        build-args: |
+          VITE_API_URL=${{ secrets.VITE_API_URL }}
 
     - name: Buld the server Docker image and push to dockerhub
       uses: docker/build-push-action@v6
